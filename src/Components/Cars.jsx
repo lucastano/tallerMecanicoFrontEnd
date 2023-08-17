@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'react-bootstrap'
+import { Col, Row, Table,Container } from 'react-bootstrap'
 import { useSelector} from 'react-redux'
 
 function Cars() {
@@ -8,7 +8,10 @@ function Cars() {
 console.log('cars', cars)
    
   return (
-    <Table striped bordered hover>
+    <Container>
+      <Row>
+        <Col sm={10}>
+        <Table striped bordered hover>
     <thead>
       <tr>
        
@@ -34,6 +37,10 @@ console.log('cars', cars)
      
     </tbody>
   </Table>
+        </Col>
+      </Row>
+    </Container>
+   
   )
 }
 

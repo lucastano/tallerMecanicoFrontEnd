@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux';
-import{obtenerVehiculos} from '../Services/Service'
+import{obtenerVehiculos,obtenerUsuarios} from '../Services/Service'
 import { cargaInicialCars } from '../Redux/features/carsSlice';
-import { useNavigate } from 'react-router-dom';
+import { cargaInicialUsers } from '../Redux/features/usuariosSlice';
+import { Outlet, useNavigate } from 'react-router-dom';
+import Menu from './Menu';
 
 function Dashboard() {
 
@@ -20,28 +22,27 @@ function Dashboard() {
         
 
         const cars=await obtenerVehiculos();
+        const users=await obtenerUsuarios();
         dispatch(cargaInicialCars(cars))
+        dispatch(cargaInicialUsers(users))
 
     }
 
-    const irautos=(e)=>{
-        
-
-        console.log('acaentro')
-        
-        navigate("/cars")
-
-    }
-
-
-  return (
+    
+return (
     <>
-     <div>Dashboard</div>
-     <button onClick={()=>irautos()} >ver autos</button>
+     <Menu></Menu>
+     <Outlet></Outlet>
+     
 
     </>
    
   )
-}
+  
+
+
+  
+  }
+
 
 export default Dashboard

@@ -12,45 +12,61 @@ export const obtenerVehiculos=()=>{
       })
   
   }
+
+  export const obtenerUsuarios=()=>{
+    
+    return fetch(`${url}api/Users/GetAll`, {
+      method: 'GET',
+    })
+      .then((response)=>response.json())
+      .then((json)=>{ 
+        return json;
+      })
+  
+  }
 //funciona
 
 
-export const registro=(object)=>{
- console.log(object);
-  return fetch(`${url}usuarios.php`, {
+export const agregarUsuario=(object)=>{
+ console.log('object', object);
+  return fetch(`${url}api/users`, {
        method: 'POST',
-       body: JSON.stringify(object) ,
        headers: {
-         'Content-type': 'application/json;',
+         'Content-type': 'application/json',
        },
+       
+       body: JSON.stringify(object)
      })
-       .then((response)=>response.json())
-       .then((json)=>{
-        if(json.codigo!=200){
-          console.log('json', json)
-
-          return Promise.reject(json)
-
-        }
-        else
-        {
-          return json;
-        }
+     .then((response)=>response.json())
+        .then((json)=>{
          
-       })
-       .catch(
-        (error)=>{
-         
-          if(error.codigo==409){
-            throw new Error(error.mensaje?error.mensaje:"Credenciales invalidas");
+          if(json.codigo!=200){
+            
+            return Promise.reject(json)
+          }else{
+
+             return json;
           }
-          if(error.message=='Failed to fetch'){
+         
+        })
+        .catch( 
+          (error)=>{
+           
+            if(error.codigo==409){
+              throw new Error(error.message?error.message:"Credenciales invalidas");
+            }
+            if(error.message=='Failed to fetch'){
               
-            throw new Error("hubo un error!");
+              throw new Error("hubo un error!");
+            }
+            
           }
-        }
-       )
+
+        );
 }
+
+
+///////////////////////////////response.json()/////////////////////////
 
 export const inicio=(object)=>{
  
